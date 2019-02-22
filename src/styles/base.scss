@@ -1,1 +1,7 @@
 @import '~reset-css/sass/reset';
+@import './utils.scss';
+
+body {
+    background: $oc-gray-8;
+    color: white;
+}

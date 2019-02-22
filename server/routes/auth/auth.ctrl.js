@@ -18,7 +18,13 @@ export const login = async ctx => {
     try {
         const response = await axios.post(
             `https://github.com/login/oauth/access_token`,
-            ctx.request.body
+            ctx.request.body,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+            }
         )
 
         ctx.body = response.data
