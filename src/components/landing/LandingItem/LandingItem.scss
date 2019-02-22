@@ -1,0 +1,25 @@
+@import '~styles/utils.scss';
+
+.LandingItem {
+    height: 160px;
+    width: 120px;
+
+    // background: white;
+
+    margin: 1rem;
+
+    display: flex;
+    flex-direction: column;
+
+    img {
+        height: 120px;
+        width: 120px;
+    }
+
+    .description {
+        word-wrap: break-word;
+        margin-top: 0.5rem;
+        width: 120px;
+        height: 40px;
+    }
+}

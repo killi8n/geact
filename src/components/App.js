@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { LoginPage, NotFoundPage, OAuthPage } from 'pages'
+import { LoginPage, NotFoundPage, OAuthPage, LandingPage } from 'pages'
 
 class App extends Component {
     render() {
@@ -13,6 +13,7 @@ class App extends Component {
                         path="/login/oauth"
                         component={OAuthPage}
                     />
+                    <Route path="/" component={LandingPage} />
                     <Route component={NotFoundPage} />
                 </Switch>
             </>

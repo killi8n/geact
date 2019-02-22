@@ -1,0 +1,12 @@
+@import '~styles/utils.scss';
+
+.LandingLine {
+    display: flex;
+    align-items: center;
+
+    height: 200px;
+
+    justify-content: center;
+
+    background: $oc-gray-9;
+}
