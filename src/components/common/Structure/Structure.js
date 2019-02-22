@@ -8,7 +8,7 @@ const cx = classnames.bind(styles)
 const Structure = ({ children }) => {
     return (
         <div className={cx('Structure')}>
-            {children}
+            <main>{children}</main>
             <FooterContainer />
         </div>
     )

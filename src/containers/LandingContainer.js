@@ -17,7 +17,8 @@ class LandingContainer extends Component {
     }
 
     getAllRepos = async ({ since }) => {
-        const { RepoActions } = this.props
+        const { RepoActions, allRepos } = this.props
+        if (allRepos.visibleRepos.length > 0) return
         try {
             await RepoActions.getAllRepos({
                 since,
@@ -29,7 +30,8 @@ class LandingContainer extends Component {
     }
 
     getAllGists = async ({ page }) => {
-        const { GistActions } = this.props
+        const { GistActions, allGists } = this.props
+        if (allGists.visibleGists.length > 0) return
         try {
             await GistActions.getAllGists({
                 page,
@@ -41,8 +43,8 @@ class LandingContainer extends Component {
     }
 
     getAllUsers = async ({ since }) => {
-        const { UserActions } = this.props
-
+        const { UserActions, allUsers } = this.props
+        if (allUsers.visibleUsers.length > 0) return
         try {
             await UserActions.getAllUsers({
                 since,

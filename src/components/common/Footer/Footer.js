@@ -5,13 +5,22 @@ import Button from 'components/common/Button'
 
 const cx = classnames.bind(styles)
 
-const Footer = ({ logout }) => {
+const Footer = ({ logout, link }) => {
     return (
         <div className={cx('Footer')}>
             <div className={cx('Buttons')}>
+                <Button theme="outline" onClick={() => link({ path: '/' })}>
+                    Home
+                </Button>
+                <div className={cx('space')} />
                 <Button theme="outline">Search User</Button>
                 <div className={cx('space')} />
-                <Button theme="outline">My Repos</Button>
+                <Button
+                    theme="outline"
+                    onClick={() => link({ path: '/mypage' })}
+                >
+                    My Repos
+                </Button>
                 <div className={cx('space')} />
                 <Button theme="outline" onClick={logout}>
                     Logout

@@ -1,0 +1,17 @@
+@import '~styles/utils.scss';
+
+.RepoItem {
+    height: 4rem;
+    background: $oc-gray-9;
+
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    cursor: pointer;
+
+    .right {
+        margin-left: auto;
+    }
+}

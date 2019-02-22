@@ -9,8 +9,12 @@ class FooterContainer extends Component {
         this.props.history.push('/login')
     }
 
+    link = ({ path }) => {
+        this.props.history.push(path)
+    }
+
     render() {
-        return <Footer logout={this.logout} />
+        return <Footer logout={this.logout} link={this.link} />
     }
 }
 

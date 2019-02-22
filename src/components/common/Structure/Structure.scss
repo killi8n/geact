@@ -3,4 +3,10 @@
 .Structure {
     display: flex;
     flex-direction: column;
+
+    position: relative;
+
+    main {
+        min-height: calc(100vh - 6rem);
+    }
 }

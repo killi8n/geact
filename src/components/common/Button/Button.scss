@@ -16,4 +16,10 @@
         background: $oc-gray-9;
         border-radius: 2px;
     }
+
+    &.disabled {
+        border: 1px solid white;
+        background: $oc-gray-4;
+        border-radius: 2px;
+    }
 }

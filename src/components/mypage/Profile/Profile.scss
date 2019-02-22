@@ -1,0 +1,25 @@
+@import '~styles/utils.scss';
+
+.Profile {
+    margin-top: 1rem;
+
+    display: flex;
+    justify-content: center;
+
+    img {
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+
+        cursor: pointer;
+    }
+
+    .right {
+        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+
+        font-size: 2rem;
+        font-weight: 300;
+    }
+}
