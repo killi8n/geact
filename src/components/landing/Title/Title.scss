@@ -1,0 +1,21 @@
+@import '~styles/utils.scss';
+
+.Title {
+    height: 25px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    background: $oc-gray-7;
+
+    .Name {
+        font-size: 2rem;
+        font-weight: 200;
+    }
+
+    .More {
+        font-size: 1rem;
+        margin-left: auto;
+        cursor: pointer;
+    }
+}

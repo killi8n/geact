@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Spinner from 'components/common/Spinner'
 import { authActions } from 'store/modules/auth'
+import { withRouter } from 'react-router-dom'
 
 class OAuthContainer extends Component {
     componentDidMount() {
@@ -18,6 +19,7 @@ class OAuthContainer extends Component {
                 clientSecret: process.env.REACT_APP_OAUTH_SECRET_ID,
             })
             localStorage.setItem('access_token', this.props.accessToken)
+            this.props.history.push('/')
         } catch (e) {
             console.log(e)
         }
@@ -28,11 +30,13 @@ class OAuthContainer extends Component {
     }
 }
 
-export default connect(
-    ({ auth }) => ({
-        accessToken: auth.accessToken,
-    }),
-    dispatch => ({
-        AuthActions: bindActionCreators(authActions, dispatch),
-    })
-)(OAuthContainer)
+export default withRouter(
+    connect(
+        ({ auth }) => ({
+            accessToken: auth.accessToken,
+        }),
+        dispatch => ({
+            AuthActions: bindActionCreators(authActions, dispatch),
+        })
+    )(OAuthContainer)
+)

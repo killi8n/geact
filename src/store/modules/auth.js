@@ -4,9 +4,11 @@ import { applyPenders } from 'redux-pender'
 import produce from 'immer'
 
 const LOGIN = 'auth/LOGIN'
+const TEMP_LOGIN = 'auth/TEMP_LOGIN'
 
 export const authActions = {
     login: createAction(LOGIN, authAPI.login),
+    tempLogin: createAction(TEMP_LOGIN, payload => payload),
 }
 
 const initialState = {
@@ -14,7 +16,16 @@ const initialState = {
     accessToken: null,
 }
 
-const reducer = handleActions({}, initialState)
+const reducer = handleActions(
+    {
+        [TEMP_LOGIN]: (state, action) => {
+            return produce(state, draft => {
+                draft.logged = true
+            })
+        },
+    },
+    initialState
+)
 
 export default applyPenders(reducer, [
     {

@@ -6,3 +6,10 @@ export const login = ({ code, clientId, clientSecret }) =>
         client_id: clientId,
         client_secret: clientSecret,
     })
+
+export const checkLogged = ({ accessToken }) =>
+    axios.get(`https://api.github.com/user`, {
+        headers: {
+            Authorization: `bearer ${accessToken}`,
+        },
+    })

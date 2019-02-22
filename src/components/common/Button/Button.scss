@@ -1,0 +1,19 @@
+@import '~styles/utils.scss';
+
+.Button {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+
+    color: white;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    &.outline {
+        border: 1px solid white;
+        background: $oc-gray-9;
+        border-radius: 2px;
+    }
+}
