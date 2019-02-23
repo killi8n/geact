@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Spinner from 'components/common/Spinner'
 import { bindActionCreators } from 'redux'
 import { repoActions } from 'store/modules/repo'
-import MyPageWrapper from 'components/mypage/MyPageWrapper'
 import Profile from 'components/mypage/Profile'
 import RepoList from 'components/mypage/RepoList'
 import { baseActions } from 'store/modules/base'
@@ -43,7 +42,7 @@ class MyPageContainer extends Component {
         if (!this.props.user || this.props.userRepo.repos.length === 0)
             return <Spinner />
         return (
-            <MyPageWrapper>
+            <>
                 <Profile user={this.props.user} />
                 <RepoList repos={this.props.userRepo.repos} />
                 {this.props.userRepo.link && (
@@ -52,7 +51,7 @@ class MyPageContainer extends Component {
                         getUserRepo={this.getUserRepo}
                     />
                 )}
-            </MyPageWrapper>
+            </>
         )
     }
 }

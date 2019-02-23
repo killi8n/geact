@@ -5,12 +5,17 @@ import Button from 'components/common/Button'
 
 const cx = classnames.bind(styles)
 
-const Title = ({ title }) => {
+const Title = ({ title, linkToMore, category }) => {
+    const link = () => {
+        linkToMore({ category })
+    }
     return (
         <div className={cx('Title')}>
             <div className={cx('Name')}>{title}</div>
             <div className={cx('More')}>
-                <Button theme="outline">More</Button>
+                <Button theme="outline" onClick={link}>
+                    More
+                </Button>
             </div>
         </div>
     )

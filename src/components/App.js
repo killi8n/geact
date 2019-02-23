@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { LoginPage, NotFoundPage, OAuthPage, LandingPage, MyPage } from 'pages'
+import {
+    LoginPage,
+    NotFoundPage,
+    OAuthPage,
+    LandingPage,
+    MyPage,
+    MorePage,
+} from 'pages'
 import Base from 'containers/Base'
 
 class App extends Component {
@@ -16,6 +23,7 @@ class App extends Component {
                         component={OAuthPage}
                     />
                     <Route path="/mypage" component={MyPage} />
+                    <Route path="/more/:category" component={MorePage} />
                     <Route component={NotFoundPage} />
                 </Switch>
                 <Base />

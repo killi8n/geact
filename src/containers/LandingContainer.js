@@ -8,6 +8,7 @@ import Spinner from 'components/common/Spinner'
 import LandingLine from 'components/landing/LandingLine'
 import LineWrapper from 'components/landing/LineWrapper'
 import Title from 'components/landing/Title/Title'
+import { withRouter } from 'react-router-dom'
 
 class LandingContainer extends Component {
     componentDidMount() {
@@ -55,6 +56,11 @@ class LandingContainer extends Component {
         }
     }
 
+    linkToMore = ({ category }) => {
+        const { history } = this.props
+        history.push(`/more/${category}`)
+    }
+
     render() {
         if (
             this.props.allRepos.visibleRepos.length === 0 ||
@@ -62,27 +68,42 @@ class LandingContainer extends Component {
             this.props.allUsers.visibleUsers.length === 0
         )
             return <Spinner />
+        const { linkToMore } = this
         return (
             <>
                 <LineWrapper>
-                    <Title title="All Repo List" />
+                    <Title
+                        title="All Repo List"
+                        linkToMore={linkToMore}
+                        category="repo"
+                    />
                     <LandingLine
                         list={this.props.allRepos.visibleRepos}
                         category="repo"
                     />
                 </LineWrapper>
                 <LineWrapper>
-                    <Title title="All Gist List" />
+                    <Title
+                        title="All Gist List"
+                        linkToMore={linkToMore}
+                        category="gist"
+                    />
                     <LandingLine
                         list={this.props.allGists.visibleGists}
                         category="gist"
+                        linkToMore={linkToMore}
                     />
                 </LineWrapper>
                 <LineWrapper>
-                    <Title title="All User List" />
+                    <Title
+                        title="All User List"
+                        linkToMore={linkToMore}
+                        category="user"
+                    />
                     <LandingLine
                         list={this.props.allUsers.visibleUsers}
                         category="user"
+                        linkToMore={linkToMore}
                     />
                 </LineWrapper>
             </>
@@ -90,15 +111,17 @@ class LandingContainer extends Component {
     }
 }
 
-export default connect(
-    ({ repo, gist, user }) => ({
-        allRepos: repo.allRepos,
-        allGists: gist.allGists,
-        allUsers: user.allUsers,
-    }),
-    dispatch => ({
-        RepoActions: bindActionCreators(repoActions, dispatch),
-        GistActions: bindActionCreators(gistActions, dispatch),
-        UserActions: bindActionCreators(userActions, dispatch),
-    })
-)(LandingContainer)
+export default withRouter(
+    connect(
+        ({ repo, gist, user }) => ({
+            allRepos: repo.allRepos,
+            allGists: gist.allGists,
+            allUsers: user.allUsers,
+        }),
+        dispatch => ({
+            RepoActions: bindActionCreators(repoActions, dispatch),
+            GistActions: bindActionCreators(gistActions, dispatch),
+            UserActions: bindActionCreators(userActions, dispatch),
+        })
+    )(LandingContainer)
+)
