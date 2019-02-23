@@ -9,4 +9,12 @@
     justify-content: center;
 
     background: $oc-gray-9;
+
+    @include media('<1300px') {
+        display: block;
+        overflow: scroll;
+        justify-content: center;
+        white-space: nowrap;
+        flex-wrap: wrap;
+    }
 }

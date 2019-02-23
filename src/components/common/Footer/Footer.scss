@@ -2,8 +2,12 @@
 
 .Footer {
     height: 6rem;
+    @include media('<=medium') {
+        height: 12rem;
+    }
     background: $oc-gray-9;
     display: flex;
+
     flex-direction: row;
 
     justify-content: center;
@@ -15,8 +19,16 @@
     .Buttons {
         display: flex;
 
+        @include media('<=medium') {
+            flex-direction: column;
+        }
+
         .space {
             width: 1rem;
+            @include media('<=medium') {
+                width: 0rem;
+                margin-top: 1rem;
+            }
         }
     }
 }

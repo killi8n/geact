@@ -8,29 +8,19 @@ import Profile from 'components/mypage/Profile'
 import RepoList from 'components/mypage/RepoList'
 import { baseActions } from 'store/modules/base'
 import Pagination from 'components/common/Pagination'
+import { withRouter } from 'react-router-dom'
 
 class MyPageContainer extends Component {
     componentDidMount() {
-        if (!this.props.user) {
-            this.checkLogged()
+        if (this.props.user) {
+            this.getUserRepo({ page: this.props.page })
         }
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.user !== this.props.user) {
             if (this.props.userRepo.repos.length > 0) return
-            this.getUserRepo({ page: 1 })
-        }
-    }
-
-    checkLogged = async () => {
-        const { BaseActions } = this.props
-        try {
-            await BaseActions.checkLogged({
-                accessToken: localStorage.getItem('access_token'),
-            })
-        } catch (e) {
-            console.log(e)
+            this.getUserRepo({ page: this.props.page })
         }
     }
 
@@ -43,6 +33,7 @@ class MyPageContainer extends Component {
                 page,
                 accessToken: localStorage.getItem('access_token'),
             })
+            this.props.history.push(`/mypage?page=${page}`)
         } catch (e) {
             console.log(e)
         }
@@ -66,13 +57,15 @@ class MyPageContainer extends Component {
     }
 }
 
-export default connect(
-    ({ base, repo }) => ({
-        user: base.user,
-        userRepo: repo.userRepo,
-    }),
-    dispatch => ({
-        RepoActions: bindActionCreators(repoActions, dispatch),
-        BaseActions: bindActionCreators(baseActions, dispatch),
-    })
-)(MyPageContainer)
+export default withRouter(
+    connect(
+        ({ base, repo }) => ({
+            user: base.user,
+            userRepo: repo.userRepo,
+        }),
+        dispatch => ({
+            RepoActions: bindActionCreators(repoActions, dispatch),
+            BaseActions: bindActionCreators(baseActions, dispatch),
+        })
+    )(MyPageContainer)
+)

@@ -34,7 +34,6 @@ class Base extends Component {
             if (localStorage.getItem('access_token')) {
                 AuthActions.tempLogin()
             }
-            console.log(localStorage.getItem('access_token'))
 
             await BaseActions.checkLogged({
                 accessToken: localStorage.getItem('access_token'),
@@ -54,8 +53,9 @@ class Base extends Component {
 
 export default withRouter(
     connect(
-        ({ auth }) => ({
+        ({ auth, base }) => ({
             logged: auth.logged,
+            user: base.user,
         }),
         dispatch => ({
             BaseActions: bindActionCreators(baseActions, dispatch),

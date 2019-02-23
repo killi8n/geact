@@ -10,7 +10,6 @@ export const baseActions = {
 }
 
 const initialState = {
-    logged: false,
     user: null,
 }
 
@@ -23,7 +22,6 @@ export default applyPenders(reducer, [
             return produce(state, draft => {
                 const { data: user } = action.payload
                 draft.user = user
-                draft.logged = true
             })
         },
     },

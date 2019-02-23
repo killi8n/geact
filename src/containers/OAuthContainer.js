@@ -19,7 +19,8 @@ class OAuthContainer extends Component {
                 clientSecret: process.env.REACT_APP_OAUTH_SECRET_ID,
             })
             localStorage.setItem('access_token', this.props.accessToken)
-            this.props.history.push('/')
+            // this.props.history.push('/')
+            window.location.replace('/')
         } catch (e) {
             console.log(e)
         }

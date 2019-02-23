@@ -17,6 +17,9 @@ const Pagination = ({ link, getUserRepo }) => {
             >
                 prev
             </Button>
+            <div className={cx('PageInfo')}>
+                {parsed.next.page - 1} / {parsed.last.page} page
+            </div>
             <div className={cx('right')}>
                 <Button
                     theme={parsed.next ? 'outline' : 'disabled'}

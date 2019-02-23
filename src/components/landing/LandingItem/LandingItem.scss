@@ -21,5 +21,15 @@
         margin-top: 0.5rem;
         width: 120px;
         height: 40px;
+
+        @include media('<1300px') {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+
+    @include media('<1300px') {
+        display: inline-block;
     }
 }
