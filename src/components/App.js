@@ -9,6 +9,7 @@ import {
     MorePage,
 } from 'pages'
 import Base from 'containers/Base'
+import RouteListener from 'lib/RouteListener'
 
 class App extends Component {
     render() {
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route component={NotFoundPage} />
                 </Switch>
                 <Base />
+                <RouteListener />
             </>
         )
     }

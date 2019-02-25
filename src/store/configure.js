@@ -5,7 +5,8 @@ import penderMiddleware from 'redux-pender'
 const reducers = combineReducers(rootReducer)
 const middlewares = [penderMiddleware()]
 
-const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+const devtools =
+    typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const composeEnhancers = devtools || compose
 
 const configure = preloadedState =>

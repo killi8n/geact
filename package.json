@@ -77,6 +77,7 @@
         "start": "node scripts/start.js",
         "start:server": "npx nodemon -r esm ./server",
         "build": "node scripts/build.js",
+        "build:server": "node scripts/build.server.js",
         "test": "node scripts/test.js"
     },
     "eslintConfig": {

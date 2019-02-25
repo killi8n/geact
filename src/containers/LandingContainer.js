@@ -12,6 +12,7 @@ import { withRouter } from 'react-router-dom'
 
 class LandingContainer extends Component {
     componentDidMount() {
+        if (window.shouldCancel) return
         this.getAllRepos({ since: null })
         this.getAllGists({ page: 1 })
         this.getAllUsers({ since: null })

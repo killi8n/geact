@@ -18,6 +18,7 @@ class MorePageContainer extends Component {
     }
 
     componentDidMount() {
+        if (window.shouldCancel) return
         const { category } = this.props
         if (category === 'repo') {
             this.getRepo({ since: null })

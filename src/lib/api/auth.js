@@ -1,4 +1,5 @@
 import axios from 'axios'
+import client from '../client'
 
 export const login = ({ code, clientId, clientSecret }) =>
     axios.post('/api/auth/login/oauth/access_token', {
@@ -8,8 +9,11 @@ export const login = ({ code, clientId, clientSecret }) =>
     })
 
 export const checkLogged = ({ accessToken }) =>
-    axios.get(`https://api.github.com/user`, {
+    client.get(`/user`, {
         headers: {
             Authorization: `bearer ${accessToken}`,
+            // process.env.NODE_ENV === 'development'
+            // ? `bearer ${accessToken}`
+            // : null,
         },
     })
