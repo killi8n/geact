@@ -5,16 +5,19 @@ import produce from 'immer'
 
 const GET_RECENT_REPOS = 'repo/GET_RECENT_REPOS'
 const GET_USER_REPO = 'repo/GET_USER_REPO'
+const INITIALIZE_MORE = 'repo/INITIALIZE_MORE'
 
 export const repoActions = {
     getAllRepos: createAction(GET_RECENT_REPOS, repoAPI.getAllRepos),
     getUserRepo: createAction(GET_USER_REPO, repoAPI.getUserRepo),
+    initializeMore: createAction(INITIALIZE_MORE, payload => payload),
 }
 
 const initialState = {
     allRepos: {
         visibleRepos: [],
         link: null,
+        repos: [],
     },
     userRepo: {
         repos: [],
@@ -22,7 +25,16 @@ const initialState = {
     },
 }
 
-const reducer = handleActions({}, initialState)
+const reducer = handleActions(
+    {
+        [INITIALIZE_MORE]: (state, action) => {
+            return produce(state, draft => {
+                draft.allRepos.repos = []
+            })
+        },
+    },
+    initialState
+)
 
 export default applyPenders(reducer, [
     {
@@ -32,6 +44,7 @@ export default applyPenders(reducer, [
                 const { data: recentRepos, headers } = action.payload
                 const { link } = headers
                 draft.allRepos.visibleRepos = recentRepos.splice(0, 8)
+                draft.allRepos.repos = recentRepos
                 draft.allRepos.link = link
             })
         },

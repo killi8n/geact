@@ -1,0 +1,7 @@
+@import '~styles/utils.scss';
+
+.ItemList {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}

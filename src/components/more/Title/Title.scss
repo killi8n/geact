@@ -1,6 +1,6 @@
 @import '~styles/utils.scss';
 
-.Title {
+.TopTitle {
     border: 1px solid white;
     border-radius: 2px;
 
@@ -13,6 +13,8 @@
     margin: 0 auto;
     margin-top: 1rem;
     width: 50%;
+
+    height: 3rem;
 
     @include media('<=medium') {
         font-size: 1rem;

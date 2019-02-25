@@ -5,7 +5,7 @@ import styles from './Title.scss'
 const cx = classnames.bind(styles)
 
 const Title = ({ title }) => {
-    return <div className={cx('Title')}>{title.toUpperCase()}</div>
+    return <div className={cx('TopTitle')}>{title.toUpperCase()}</div>
 }
 
 export default Title

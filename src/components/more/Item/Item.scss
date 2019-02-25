@@ -1,0 +1,22 @@
+@import '~styles/utils.scss';
+
+.Item {
+    width: 150px;
+    height: 210px;
+    padding: 0.25rem;
+    img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .description-more {
+        background: $oc-gray-9;
+        width: 143px;
+        height: 50px;
+        word-wrap: break-word;
+        padding-top: 0.25rem;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+}
