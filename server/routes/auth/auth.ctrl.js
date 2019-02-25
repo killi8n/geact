@@ -27,6 +27,8 @@ export const login = async ctx => {
             }
         )
 
+        const { access_token } = response.data
+        ctx.cookies.set('access_token', access_token)
         ctx.body = response.data
         ctx.status = 200
     } catch (e) {

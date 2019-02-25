@@ -5,6 +5,7 @@ import fs from 'fs'
 import path from 'path'
 import serve from 'koa-static'
 import api from './routes'
+import { accessTokenMiddleware } from './lib/accessToken'
 
 const buildLocation = path.join(__dirname, '../build')
 const buildIndex = path.join(__dirname, '../build/index.html')
@@ -16,6 +17,7 @@ const router = new Router()
 router.use('/api', api.routes())
 
 app.use(bodyParser())
+app.use(accessTokenMiddleware)
 
 app.use(router.routes()).use(router.allowedMethods())
 app.use(serve(buildLocation))
