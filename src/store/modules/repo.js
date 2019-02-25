@@ -44,7 +44,7 @@ export default applyPenders(reducer, [
                 const { data: recentRepos, headers } = action.payload
                 const { link } = headers
                 draft.allRepos.visibleRepos = recentRepos.splice(0, 8)
-                draft.allRepos.repos = recentRepos
+                draft.allRepos.repos = state.allRepos.repos.concat(recentRepos)
                 draft.allRepos.link = link
             })
         },

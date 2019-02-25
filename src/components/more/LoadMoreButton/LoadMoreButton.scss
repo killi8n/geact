@@ -1,0 +1,21 @@
+@import '~styles/utils.scss';
+
+.LoadMoreButton {
+    width: 93.2%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    background: $oc-gray-9;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: ceneter;
+
+    font-size: 1.5rem;
+    font-weight: 300;
+
+    cursor: pointer;
+}

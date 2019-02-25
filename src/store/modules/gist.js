@@ -37,7 +37,7 @@ export default applyPenders(reducer, [
             return produce(state, draft => {
                 const { data: gists, headers } = action.payload
                 draft.allGists.visibleGists = gists.splice(0, 8)
-                draft.allGists.gists = gists
+                draft.allGists.gists = state.allGists.gists.concat(gists)
                 draft.allGists.link = headers.link
             })
         },
