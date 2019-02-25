@@ -17,7 +17,7 @@ const Footer = ({ logout, link }) => {
                 <div className={cx('space')} />
                 <Button
                     theme="outline"
-                    onClick={() => link({ path: '/mypage' })}
+                    onClick={() => link({ path: '/mypage?page=1' })}
                 >
                     My Repos
                 </Button>

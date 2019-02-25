@@ -5,13 +5,13 @@ import { bindActionCreators } from 'redux'
 import { repoActions } from 'store/modules/repo'
 import Profile from 'components/mypage/Profile'
 import RepoList from 'components/mypage/RepoList'
-import { baseActions } from 'store/modules/base'
 import Pagination from 'components/common/Pagination'
 import { withRouter } from 'react-router-dom'
 
 class MyPageContainer extends Component {
     componentDidMount() {
         if (this.props.user) {
+            if (window.shouldCancel) return
             this.getUserRepo({ page: this.props.page })
         }
     }
@@ -64,7 +64,6 @@ export default withRouter(
         }),
         dispatch => ({
             RepoActions: bindActionCreators(repoActions, dispatch),
-            BaseActions: bindActionCreators(baseActions, dispatch),
         })
     )(MyPageContainer)
 )

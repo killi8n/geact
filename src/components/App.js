@@ -23,7 +23,7 @@ class App extends Component {
                         path="/login/oauth"
                         component={OAuthPage}
                     />
-                    <Route path="/mypage" component={MyPage} />
+                    <Route path="/mypage?" component={MyPage} />
                     <Route path="/more/:category" component={MorePage} />
                     <Route component={NotFoundPage} />
                 </Switch>

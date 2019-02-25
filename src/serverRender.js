@@ -18,6 +18,7 @@ const serverRender = async ctx => {
 
     routeConfig.forEach(route => {
         const match = matchPath(url, route)
+        console.log(url, route, match)
         if (!match) return
         const { preload } = route
         if (!preload) return
