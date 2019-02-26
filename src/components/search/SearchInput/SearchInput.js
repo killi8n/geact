@@ -12,7 +12,7 @@ const SearchInput = ({ onChangeInput, input, searchByUsername }) => {
 
     const handleKeyPress = e => {
         if (e.key === 'Enter') {
-            searchByUsername()
+            searchByUsername({ page: 1 })
         }
     }
     return (

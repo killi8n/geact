@@ -19,7 +19,7 @@ export const searchActions = {
 const initialState = {
     searchInput: '',
     result: {
-        users: [],
+        users: null,
         link: null,
     },
 }
@@ -31,7 +31,12 @@ const reducer = handleActions(
                 draft.searchInput = action.payload.value
             })
         },
-        [INITIALIZE]: (state, action) => initialState,
+        [INITIALIZE]: (state, action) => {
+            return produce(state, draft => {
+                draft.searchInput = ''
+                draft.result = initialState.result
+            })
+        },
     },
     initialState
 )
@@ -42,6 +47,15 @@ export default applyPenders(reducer, [
         onSuccess: (state, action) => {
             return produce(state, draft => {
                 const { data: users, headers } = action.payload
+                if (state.result.users && state.result.users.items.length > 0) {
+                    draft.result.users.items = state.result.users.items.concat(
+                        users.items
+                    )
+                    if (headers.link) {
+                        draft.result.link = headers.link
+                    }
+                    return
+                }
                 draft.result.users = users
                 if (headers.link) {
                     draft.result.link = headers.link

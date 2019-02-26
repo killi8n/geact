@@ -1,7 +1,7 @@
 import client from '../client'
 
-export const searchByUsername = ({ username, accessToken }) =>
-    client.get(`/search/users?q=${username}`, {
+export const searchByUsername = ({ username, accessToken, page }) =>
+    client.get(`/search/users?q=${username}&page=${page}`, {
         headers: {
             Authorization: `bearer ${accessToken}`,
         },

@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ModalWrapper from 'components/common/ModalWrapper'
-import SearchInput from 'components/search/SearchInput'
 import { bindActionCreators } from 'redux'
 import { baseActions } from 'store/modules/base'
 import { searchActions } from 'store/modules/search'
+import Spinner from 'components/common/Spinner'
+import ModalWrapper from 'components/common/ModalWrapper'
+import SearchInput from 'components/search/SearchInput'
+import SearchResultList from 'components/search/SearchResultList'
+import LoadMoreButton from 'components/more/LoadMoreButton'
+import BottomSpinner from 'components/common/BottomSpinner'
+import parseLinkHeader from 'parse-link-header'
 
 class ModalContainer extends Component {
+    state = {
+        firstLoading: true,
+    }
+
     componentWillUnmount() {
         let flag = false
         Object.keys(this.props.modal).forEach(modalname => {
@@ -64,6 +73,9 @@ class ModalContainer extends Component {
         const { BaseActions, SearchActions } = this.props
         SearchActions.initialize()
         BaseActions.hideModal()
+        this.setState({
+            firstLoading: true,
+        })
     }
 
     handleChangeSearch = ({ value }) => {
@@ -71,13 +83,34 @@ class ModalContainer extends Component {
         SearchActions.changeInput({ value })
     }
 
-    searchByUsername = async () => {
+    searchByUsername = async ({ page }) => {
         const { SearchActions, input } = this.props
 
         try {
             await SearchActions.searchByUsername({
                 username: input,
                 accessToken: localStorage.getItem('access_token'),
+                page,
+            })
+            if (!this.state.firstLoading) {
+                this.setState({
+                    firstLoading: false,
+                })
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    loadMoreUser = async () => {
+        const { SearchActions, input, link } = this.props
+        const parsed = parseLinkHeader(link)
+        if (!parsed.next) return
+        try {
+            await SearchActions.searchByUsername({
+                username: input,
+                accessToken: localStorage.getItem('access_token'),
+                page: parsed.next.page,
             })
         } catch (e) {
             console.log(e)
@@ -85,16 +118,29 @@ class ModalContainer extends Component {
     }
 
     render() {
-        const { modal, input } = this.props
-        const { handleChangeSearch, searchByUsername } = this
+        const { modal, input, userLoading, users, link } = this.props
+        const { handleChangeSearch, searchByUsername, loadMoreUser } = this
+
         return (
             <>
                 <ModalWrapper visible={modal.search.visible}>
-                    <SearchInput
-                        onChangeInput={handleChangeSearch}
-                        input={input}
-                        searchByUsername={searchByUsername}
-                    />
+                    {userLoading && this.state.firstLoading && <Spinner />}
+                    {!users && (
+                        <SearchInput
+                            onChangeInput={handleChangeSearch}
+                            input={input}
+                            searchByUsername={searchByUsername}
+                        />
+                    )}
+                    {users && users.items.length > 0 && (
+                        <>
+                            <SearchResultList list={users.items} />
+                            {link && <LoadMoreButton onClick={loadMoreUser} />}
+                            {userLoading && !this.state.firstLoading && (
+                                <BottomSpinner />
+                            )}
+                        </>
+                    )}
                 </ModalWrapper>
             </>
         )
@@ -102,9 +148,12 @@ class ModalContainer extends Component {
 }
 
 export default connect(
-    ({ base, search }) => ({
+    ({ base, search, pender }) => ({
         modal: base.modal,
         input: search.searchInput,
+        userLoading: pender.pending['search/SEARCH_BY_USERNAME'],
+        users: search.result.users,
+        link: search.result.link,
     }),
     dispatch => ({
         BaseActions: bindActionCreators(baseActions, dispatch),
