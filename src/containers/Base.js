@@ -21,7 +21,11 @@ class Base extends Component {
     checkLogged = async () => {
         const { BaseActions, AuthActions } = this.props
 
-        if (this.props.history.location.pathname === '/login/oauth') return
+        if (
+            this.props.history.location.pathname === '/login/oauth' ||
+            this.props.history.location.pathname === '/mypage'
+        )
+            return
 
         try {
             if (this.props.history.location.pathname === '/login') {

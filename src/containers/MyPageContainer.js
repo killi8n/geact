@@ -1,34 +1,49 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Spinner from 'components/common/Spinner'
+import { withRouter } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { repoActions } from 'store/modules/repo'
+import { baseActions } from 'store/modules/base'
 import Profile from 'components/mypage/Profile'
 import RepoList from 'components/mypage/RepoList'
 import Pagination from 'components/common/Pagination'
-import { withRouter } from 'react-router-dom'
+import Spinner from 'components/common/Spinner'
 
 class MyPageContainer extends Component {
     componentDidMount() {
-        if (this.props.user) {
-            if (window.shouldCancel) return
-            this.getUserRepo({ page: this.props.page })
-        }
+        if (window.shouldCancel) return
+        this.getDataProcess()
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.user !== this.props.user) {
-            if (this.props.userRepo.repos.length > 0) return
-            this.getUserRepo({ page: this.props.page })
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (prevProps.user !== this.props.user) {
+    //         if (this.props.userRepo.repos.length > 0) return
+    //         this.getUserRepo({ page: this.props.page })
+    //     }
+    // }
+
+    getDataProcess = async () => {
+        await this.getUserInfo()
+        await this.getUserRepo({ page: this.props.page })
+    }
+
+    getUserInfo = async () => {
+        const { BaseActions } = this.props
+
+        try {
+            await BaseActions.checkLogged({
+                accessToken: localStorage.getItem('access_token'),
+            })
+        } catch (e) {
+            console.log(e)
         }
     }
 
     getUserRepo = async ({ page }) => {
-        const { RepoActions, user } = this.props
-
+        const { RepoActions } = this.props
         try {
             await RepoActions.getUserRepo({
-                username: user.login,
+                username: this.props.user.login,
                 page,
                 accessToken: localStorage.getItem('access_token'),
             })
@@ -58,12 +73,13 @@ class MyPageContainer extends Component {
 
 export default withRouter(
     connect(
-        ({ base, repo }) => ({
-            user: base.user,
+        ({ repo, base }) => ({
             userRepo: repo.userRepo,
+            user: base.user,
         }),
         dispatch => ({
             RepoActions: bindActionCreators(repoActions, dispatch),
+            BaseActions: bindActionCreators(baseActions, dispatch),
         })
     )(MyPageContainer)
 )

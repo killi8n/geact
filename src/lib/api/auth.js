@@ -17,3 +17,5 @@ export const checkLogged = ({ accessToken }) =>
             // : null,
         },
     })
+
+export const logout = () => axios.post('/api/auth/logout', {})

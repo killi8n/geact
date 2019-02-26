@@ -27,11 +27,33 @@ export const login = async ctx => {
             }
         )
 
+        const checkUserResponse = await axios.get(
+            `https://api.github.com/user`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    Authorization: `bearer ${response.data.access_token}`,
+                },
+            }
+        )
+
+        const { data: user } = checkUserResponse
+        ctx.cookies.set('user', JSON.stringify(user))
         const { access_token } = response.data
         ctx.cookies.set('access_token', access_token)
-        ctx.body = response.data
+        ctx.body = {
+            accessToken: response.data.access_token,
+            user,
+        }
         ctx.status = 200
     } catch (e) {
         console.log(e)
     }
+}
+
+export const logout = ctx => {
+    ctx.cookies.set('user', null)
+    ctx.cookies.set('access_token', null)
+    ctx.status = 204
 }

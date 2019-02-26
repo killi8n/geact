@@ -40,17 +40,17 @@ export default [
     {
         exact: false,
         path: '/mypage',
-        // preload: (store, params, accessToken) => {
-        //     const BaseActions = bindActionCreators(baseActions, store.dispatch)
-        //     const RepoActions = bindActionCreators(repoActions, store.dispatch)
-        //     const checkLoggedPromise = BaseActions.checkLogged({ accessToken })
-        //     const getUserRepoPromise = RepoActions.getUserRepo({
-        //         username: store.getState().base.user.login,
-        //         page: 1,
-        //         accessToken,
-        //     })
-        //     return Promise.all([checkLoggedPromise, getUserRepoPromise])
-        // },
+        preload: (store, params, accessToken, login) => {
+            const BaseActions = bindActionCreators(baseActions, store.dispatch)
+            const RepoActions = bindActionCreators(repoActions, store.dispatch)
+            const getUserInfoPromise = BaseActions.checkLogged({ accessToken })
+            const getUserRepoPromise = RepoActions.getUserRepo({
+                username: login,
+                page: 1,
+                accessToken,
+            })
+            return Promise.all([getUserInfoPromise, getUserRepoPromise])
+        },
     },
     {
         exact: false,

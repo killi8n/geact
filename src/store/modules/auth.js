@@ -5,15 +5,18 @@ import produce from 'immer'
 
 const LOGIN = 'auth/LOGIN'
 const TEMP_LOGIN = 'auth/TEMP_LOGIN'
+const LOGOUT = 'auth/LOGOUT'
 
 export const authActions = {
     login: createAction(LOGIN, authAPI.login),
     tempLogin: createAction(TEMP_LOGIN, payload => payload),
+    logout: createAction(LOGOUT, authAPI.logout),
 }
 
 const initialState = {
     logged: false,
     accessToken: null,
+    user: null,
 }
 
 const reducer = handleActions(
@@ -32,8 +35,9 @@ export default applyPenders(reducer, [
         type: LOGIN,
         onSuccess: (state, action) => {
             return produce(state, draft => {
-                const { access_token } = action.payload.data
-                draft.accessToken = access_token
+                const { accessToken, user } = action.payload.data
+                draft.accessToken = accessToken
+                draft.user = user
                 draft.logged = true
             })
         },

@@ -19,6 +19,7 @@ class OAuthContainer extends Component {
                 clientSecret: process.env.REACT_APP_OAUTH_SECRET_ID,
             })
             localStorage.setItem('access_token', this.props.accessToken)
+            localStorage.setItem('user', JSON.stringify(this.props.user))
             // this.props.history.push('/')
             window.location.replace('/')
         } catch (e) {
@@ -35,6 +36,7 @@ export default withRouter(
     connect(
         ({ auth }) => ({
             accessToken: auth.accessToken,
+            user: auth.user,
         }),
         dispatch => ({
             AuthActions: bindActionCreators(authActions, dispatch),

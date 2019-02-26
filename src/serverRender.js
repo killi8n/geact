@@ -10,6 +10,8 @@ import routeConfig from './routeConfig'
 const serverRender = async ctx => {
     const { url, origin } = ctx
     const accessToken = ctx.cookies.get('access_token')
+    const user = JSON.parse(ctx.cookies.get('user'))
+    const { login } = user
 
     const store = configure()
     const promises = []
@@ -17,14 +19,16 @@ const serverRender = async ctx => {
     axios.defaults.baseURL = origin
 
     routeConfig.forEach(route => {
-        const match = matchPath(url, route)
-        console.log(url, route, match)
+        const match = matchPath(url.split('?')[0], route)
         if (!match) return
         const { preload } = route
         if (!preload) return
         const { params } = match
 
-        const promise = preload(store, params, accessToken)
+        const promise =
+            url.split('?')[0] === '/mypage'
+                ? preload(store, params, accessToken, login)
+                : preload(store, params, accessToken)
         promises.push(promise)
     })
 
@@ -34,6 +38,7 @@ const serverRender = async ctx => {
         await Promise.all(promises)
     } catch (e) {
         error = e
+        console.log(e)
     }
 
     let context = {}
