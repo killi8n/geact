@@ -8,6 +8,8 @@ import Profile from 'components/mypage/Profile'
 import RepoList from 'components/mypage/RepoList'
 import Pagination from 'components/common/Pagination'
 import Spinner from 'components/common/Spinner'
+import parseLinkHeader from 'parse-link-header'
+import { Helmet } from 'react-helmet'
 
 class MyPageContainer extends Component {
     componentDidMount() {
@@ -36,6 +38,8 @@ class MyPageContainer extends Component {
             })
         } catch (e) {
             console.log(e)
+            localStorage.clear()
+            this.props.history.push('/login')
         }
     }
 
@@ -56,8 +60,16 @@ class MyPageContainer extends Component {
     render() {
         if (!this.props.user || this.props.userRepo.repos.length === 0)
             return <Spinner />
+        const parsed = parseLinkHeader(this.props.userRepo.link)
         return (
             <>
+                <Helmet>
+                    <title>
+                        {`GEACT - MYPAGE ${parsed.next.page - 1} / ${
+                            parsed.last.page
+                        }`}
+                    </title>
+                </Helmet>
                 <Profile user={this.props.user} />
                 <RepoList repos={this.props.userRepo.repos} />
                 {this.props.userRepo.link && (

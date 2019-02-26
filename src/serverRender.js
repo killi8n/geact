@@ -6,6 +6,7 @@ import { StaticRouter, matchPath } from 'react-router-dom'
 import configure from './store/configure'
 import App from './components/App'
 import routeConfig from './routeConfig'
+import { Helmet } from 'react-helmet'
 
 const serverRender = async ctx => {
     const { url, origin } = ctx
@@ -27,7 +28,13 @@ const serverRender = async ctx => {
 
         const promise =
             url.split('?')[0] === '/mypage'
-                ? preload(store, params, accessToken, login)
+                ? preload(
+                      store,
+                      params,
+                      accessToken,
+                      login,
+                      url.split('?page=')[1]
+                  )
                 : preload(store, params, accessToken)
         promises.push(promise)
     })
@@ -55,10 +62,13 @@ const serverRender = async ctx => {
         ctx.status = 404
     }
 
+    const helmet = Helmet.renderStatic()
+
     return {
         html,
         state: store.getState(),
         error,
+        helmet,
     }
 }
 

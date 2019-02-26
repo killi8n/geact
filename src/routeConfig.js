@@ -40,13 +40,13 @@ export default [
     {
         exact: false,
         path: '/mypage',
-        preload: (store, params, accessToken, login) => {
+        preload: (store, params, accessToken, login, page) => {
             const BaseActions = bindActionCreators(baseActions, store.dispatch)
             const RepoActions = bindActionCreators(repoActions, store.dispatch)
             const getUserInfoPromise = BaseActions.checkLogged({ accessToken })
             const getUserRepoPromise = RepoActions.getUserRepo({
                 username: login,
-                page: 1,
+                page,
                 accessToken,
             })
             return Promise.all([getUserInfoPromise, getUserRepoPromise])

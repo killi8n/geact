@@ -5,7 +5,8 @@ const manifest = require('../../build/asset-manifest.json')
 const reactIndex = path.join(__dirname, '../../build/index.html')
 const indexHtml = fs.readFileSync(reactIndex, { encoding: 'utf8' })
 
-function buildHtml({ html, state, error }) {
+function buildHtml({ html, state, error, helmet }) {
+    const { title } = helmet
     const jsKeys = Object.keys(manifest)
         .filter(jsKey => jsKey.match(/.js$/))
         .map(key => {
@@ -26,11 +27,11 @@ function buildHtml({ html, state, error }) {
     <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="shortcut icon" href="./favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="theme-color" content="#000000" />
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-        <title>React App</title>
+        <link rel="manifest" href="./manifest.json" />
+        ${title.toString()}
         ${cssKeys}
     </head>
     <body>
