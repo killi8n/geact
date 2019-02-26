@@ -5,7 +5,7 @@ import Button from 'components/common/Button'
 
 const cx = classnames.bind(styles)
 
-const Footer = ({ logout, link }) => {
+const Footer = ({ logout, link, openSearchModal }) => {
     return (
         <div className={cx('Footer')}>
             <div className={cx('Buttons')}>
@@ -13,7 +13,9 @@ const Footer = ({ logout, link }) => {
                     Home
                 </Button>
                 <div className={cx('space')} />
-                <Button theme="outline">Search User</Button>
+                <Button theme="outline" onClick={openSearchModal}>
+                    Search User
+                </Button>
                 <div className={cx('space')} />
                 <Button
                     theme="outline"

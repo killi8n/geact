@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { authActions } from 'store/modules/auth'
 import Footer from 'components/common/Footer'
+import { baseActions } from '../store/modules/base'
 
 class FooterContainer extends Component {
     logout = async () => {
@@ -22,8 +23,18 @@ class FooterContainer extends Component {
         this.props.history.push(path)
     }
 
+    openSearchModal = () => {
+        this.props.BaseActions.openModal({ modalname: 'search' })
+    }
+
     render() {
-        return <Footer logout={this.logout} link={this.link} />
+        return (
+            <Footer
+                logout={this.logout}
+                link={this.link}
+                openSearchModal={this.openSearchModal}
+            />
+        )
     }
 }
 
@@ -32,6 +43,7 @@ export default withRouter(
         () => ({}),
         dispatch => ({
             AuthActions: bindActionCreators(authActions, dispatch),
+            BaseActions: bindActionCreators(baseActions, dispatch),
         })
     )(FooterContainer)
 )

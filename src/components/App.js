@@ -10,6 +10,7 @@ import {
 } from 'pages'
 import Base from 'containers/Base'
 import RouteListener from 'lib/RouteListener'
+import ModalContainer from 'containers/ModalContainer'
 
 class App extends Component {
     render() {
@@ -28,6 +29,7 @@ class App extends Component {
                     <Route component={NotFoundPage} />
                 </Switch>
                 <Base />
+                <ModalContainer />
                 <RouteListener />
             </>
         )
