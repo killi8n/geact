@@ -71,15 +71,29 @@ class ModalContainer extends Component {
         SearchActions.changeInput({ value })
     }
 
+    searchByUsername = async () => {
+        const { SearchActions, input } = this.props
+
+        try {
+            await SearchActions.searchByUsername({
+                username: input,
+                accessToken: localStorage.getItem('access_token'),
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     render() {
         const { modal, input } = this.props
-        const { handleChangeSearch } = this
+        const { handleChangeSearch, searchByUsername } = this
         return (
             <>
                 <ModalWrapper visible={modal.search.visible}>
                     <SearchInput
                         onChangeInput={handleChangeSearch}
                         input={input}
+                        searchByUsername={searchByUsername}
                     />
                 </ModalWrapper>
             </>

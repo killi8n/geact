@@ -4,10 +4,16 @@ import styles from './SearchInput.scss'
 
 const cx = classnames.bind(styles)
 
-const SearchInput = ({ onChangeInput, input }) => {
+const SearchInput = ({ onChangeInput, input, searchByUsername }) => {
     const handleChange = e => {
         const { value } = e.target
         onChangeInput({ value })
+    }
+
+    const handleKeyPress = e => {
+        if (e.key === 'Enter') {
+            searchByUsername()
+        }
     }
     return (
         <div className={cx('InputWrapper')}>
@@ -18,6 +24,7 @@ const SearchInput = ({ onChangeInput, input }) => {
                 placeholder="Search By Username"
                 onChange={handleChange}
                 value={input}
+                onKeyPress={handleKeyPress}
             />
         </div>
     )
