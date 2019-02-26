@@ -32,8 +32,9 @@ const reducer = handleActions(
         },
         [HIDE_MODAL]: (state, action) => {
             return produce(state, draft => {
-                const { modalname } = action.payload
-                draft.modal[modalname].visible = false
+                Object.keys(state.modal).forEach(modalname => {
+                    draft.modal[modalname].visible = false
+                })
             })
         },
     },

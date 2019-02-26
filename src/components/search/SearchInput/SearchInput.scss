@@ -1,16 +1,20 @@
 @import '~styles/utils.scss';
 
 .InputWrapper {
-    // width: 100%;
-    // height: calc(100vh);
+    width: 100%;
+    height: calc(100vh);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
     .SearchInput {
-        // outline: none;
-        // border: none;
-        // background: transparent;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid white;
+        background: transparent;
+
+        font-size: 2.5rem;
+        color: white;
     }
 }
