@@ -7,20 +7,28 @@ const cx = classnames.bind(styles)
 const LandingItem = ({ item, category }) => {
     if (category === 'repo') {
         return (
-            <div className={cx('LandingItem')}>
+            <a
+                target="blank_"
+                href={item.html_url}
+                className={cx('LandingItem')}
+            >
                 <img src={item.owner.avatar_url} alt="profile avatar" />
                 <div className={cx('description')}>
                     {item.full_name.length > 30
                         ? `${item.full_name.substring(0, 29)}...`
                         : item.full_name}
                 </div>
-            </div>
+            </a>
         )
     }
 
     if (category === 'gist') {
         return (
-            <div className={cx('LandingItem')}>
+            <a
+                target="blank_"
+                href={item.html_url}
+                className={cx('LandingItem')}
+            >
                 <img src={item.owner.avatar_url} alt="profile avatar" />
                 <div className={cx('description')}>
                     {item.owner.login}/
@@ -28,20 +36,24 @@ const LandingItem = ({ item, category }) => {
                         ? `${Object.keys(item.files)[0].substring(0, 29)}...`
                         : Object.keys(item.files)[0]}
                 </div>
-            </div>
+            </a>
         )
     }
 
     if (category === 'user') {
         return (
-            <div className={cx('LandingItem')}>
+            <a
+                target="blank_"
+                href={item.html_url}
+                className={cx('LandingItem')}
+            >
                 <img src={item.avatar_url} alt="profile avatar" />
                 <div className={cx('description')}>
                     {item.login > 30
                         ? `${item.login.substring(0, 29)}...`
                         : item.login}
                 </div>
-            </div>
+            </a>
         )
     }
 
