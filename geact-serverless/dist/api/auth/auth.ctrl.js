@@ -40,9 +40,21 @@ exports.login = (ctx) => __awaiter(this, void 0, void 0, function* () {
             },
         });
         const { data: user } = checkUserResponse;
-        ctx.cookies.set('user', JSON.stringify(user));
+        ctx.cookies.set('user', JSON.stringify(user), {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            domain: process.env.NODE_ENV === 'development'
+                ? 'localhost'
+                : 'd98ks68zad15n.cloudfront.net',
+        });
         const { access_token } = response.data;
-        ctx.cookies.set('access_token', access_token);
+        ctx.cookies.set('access_token', access_token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            domain: process.env.NODE_ENV === 'development'
+                ? 'localhost'
+                : 'd98ks68zad15n.cloudfront.net',
+        });
         ctx.body = {
             accessToken: response.data.access_token,
             user,

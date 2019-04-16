@@ -1,12 +1,7 @@
 import { Context } from 'koa';
-import fs from 'fs';
-import path from 'path';
 import axios from 'axios';
 const manifest = require('../manifest.json');
 const render = require('./index').default;
-// const indexHTML = fs.readFileSync(path.join(__dirname, '../build/index.html'), {
-//     encoding: 'utf8',
-// });
 
 type BuildHtmlPayload = {
     html?: string;

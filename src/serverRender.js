@@ -11,9 +11,11 @@ import { Helmet } from 'react-helmet';
 const serverRender = async ctx => {
     const { url, origin } = ctx;
     const accessToken = ctx.cookies.get('access_token');
+
     const store = configure();
     let error = null;
     if (!accessToken) {
+        console.log('not accesstoken');
         let context = {};
 
         const html = ReactDOMServer.renderToString(

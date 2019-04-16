@@ -8,7 +8,7 @@
         "build:watch": "tsc --watch",
         "deploy:dev": "sls deploy --stage dev",
         "deploy:prod": "sls deploy --stage prod",
-        "offline": "NODE_ENV=production NODE_PATH=dist sls offline --port 4000 --printOutput",
+        "offline": "NODE_ENV=development NODE_PATH=dist sls offline --stage prod --port 4000 --printOutput",
         "start:local": "NODE_ENV=development NODE_PATH=dist nodemon ./dist/server-local.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
