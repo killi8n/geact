@@ -1,6 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+process.env.APP_ENV = 'server';
+
+require('../config/env');
+
 // const copyBuild = async () => {
 //     try {
 //         const buildPath = path.join(__dirname, '../build');
@@ -47,11 +53,9 @@ const copyAssetManifest = async () => {
         let assetManifestWithCDN = {};
         const keys = Object.keys(assetManifest);
         keys.forEach(key => {
-            assetManifestWithCDN[
-                key
-            ] = `https://d308ayjj1uqpre.cloudfront.net/build${
-                assetManifest[key]
-            }`;
+            assetManifestWithCDN[key] = `${
+                process.env.REACT_APP_BUILD_S3_CLOUD_FRONT_URL
+            }${assetManifest[key]}`;
         });
         await fs.writeFileSync(
             serverlessManifestPath,

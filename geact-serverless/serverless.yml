@@ -29,16 +29,16 @@ resources:
             Type: AWS::CloudFront::Distribution
             Properties:
                 DistributionConfig:
-                    Comment: Geact Serverless
+                    Comment: geact-serverless
                     DefaultCacheBehavior:
-                        TargetOriginId: Geact
+                        TargetOriginId: geact-serverless
                         ViewerProtocolPolicy: 'redirect-to-https'
                         DefaultTTL: 30
                         ForwardedValues:
                             QueryString: false
                     Enabled: true
                     Origins:
-                        - Id: Geact
+                        - Id: geact-serverless
                           DomainName:
                               Fn::Join:
                                   - '.'
