@@ -49,10 +49,17 @@ const copySsr = async () => {
             }
         }
 
-        await fs.copyFileSync(
-            path.join(__dirname, '../server/ssr/index.js'),
-            path.join(__dirname, '../geact-serverless/dist/ssr/index.js')
+        const ssrIndex = path.join(__dirname, '../server/ssr/index.js');
+        const serverlessDistSsrIndex = path.join(
+            __dirname,
+            '../geact-serverless/dist/ssr/index.js'
         );
+        const serverlessSsrIndex = path.join(
+            __dirname,
+            '../geact-serverless/src/ssr/index.js'
+        );
+        await fs.copyFileSync(ssrIndex, serverlessDistSsrIndex);
+        await fs.copyFileSync(ssrIndex, serverlessSsrIndex);
     } catch (e) {
         throw new Error(e);
     }

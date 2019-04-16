@@ -81,6 +81,7 @@
         "build": "node scripts/build.js && node scripts/uploadToS3.js",
         "build:server": "node scripts/build.server.js && node scripts/copy.js",
         "build:serverless": "node scripts/build.serverless.js",
+        "client-deploy:pre": "yarn build && yarn build:server",
         "test": "node scripts/test.js"
     },
     "eslintConfig": {
