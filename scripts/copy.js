@@ -36,30 +36,62 @@ const fs = require('fs');
 //     }
 // };
 
-const copySsr = async () => {
+const copyAssetManifest = async () => {
+    const serverlessManifestPath = path.join(
+        __dirname,
+        '../geact-serverless/src/manifest.json'
+    );
+    const serverlessDistPath = path.join(__dirname, '../geact-serverless/dist');
     try {
-        const distPath = path.join(__dirname, '../geact-serverless/dist');
-        const distSsrPath = path.join(distPath, './ssr');
-        const isDistExisting = await fs.existsSync(distPath);
-        const isDistSsrExisting = await fs.existsSync(distSsrPath);
-        if (!isDistExisting) {
-            await fs.mkdirSync(distPath);
-            if (!isDistSsrExisting) {
-                await fs.mkdirSync(distSsrPath);
-            }
+        const assetManifest = require('../build/asset-manifest.json');
+        let assetManifestWithCDN = {};
+        const keys = Object.keys(assetManifest);
+        keys.forEach(key => {
+            assetManifestWithCDN[
+                key
+            ] = `https://d308ayjj1uqpre.cloudfront.net/build${
+                assetManifest[key]
+            }`;
+        });
+        await fs.writeFileSync(
+            serverlessManifestPath,
+            JSON.stringify(assetManifestWithCDN)
+        );
+        const isServerlessDistExisting = await fs.existsSync(
+            serverlessDistPath
+        );
+        if (!isServerlessDistExisting) {
+            await fs.mkdirSync(serverlessDistPath);
         }
+        await fs.writeFileSync(
+            path.join(serverlessDistPath, './manifest.json'),
+            JSON.stringify(assetManifestWithCDN)
+        );
+    } catch (e) {
+        throw new Error(e);
+    }
+};
 
-        const ssrIndex = path.join(__dirname, '../server/ssr/index.js');
-        const serverlessDistSsrIndex = path.join(
-            __dirname,
-            '../geact-serverless/dist/ssr/index.js'
+const copySsr = async () => {
+    const serverlessSsrIndexJs = path.join(
+        __dirname,
+        '../geact-serverless/src/ssr/index.js'
+    );
+    const serverlessDistSsr = path.join(
+        __dirname,
+        '../geact-serverless/dist/ssr'
+    );
+    try {
+        const isServerlessDistSsrExisting = await fs.existsSync(
+            serverlessDistSsr
         );
-        const serverlessSsrIndex = path.join(
-            __dirname,
-            '../geact-serverless/src/ssr/index.js'
+        if (!isServerlessDistSsrExisting) {
+            await fs.mkdirSync(serverlessDistSsr);
+        }
+        await fs.copyFileSync(
+            serverlessSsrIndexJs,
+            path.join(serverlessDistSsr, './index.js')
         );
-        await fs.copyFileSync(ssrIndex, serverlessDistSsrIndex);
-        await fs.copyFileSync(ssrIndex, serverlessSsrIndex);
     } catch (e) {
         throw new Error(e);
     }
@@ -68,6 +100,7 @@ const copySsr = async () => {
 const main = async () => {
     try {
         // await copyBuild();
+        await copyAssetManifest();
         await copySsr();
     } catch (e) {
         throw new Error(e);
