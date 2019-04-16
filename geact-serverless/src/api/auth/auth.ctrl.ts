@@ -69,7 +69,19 @@ export const login = async (ctx: Context) => {
 };
 
 export const logout = (ctx: Context) => {
-    ctx.cookies.set('user', undefined);
-    ctx.cookies.set('access_token', undefined);
+    ctx.cookies.set('user', '', {
+        maxAge: 0,
+        domain:
+            process.env.NODE_ENV === 'development'
+                ? 'localhost'
+                : 'd98ks68zad15n.cloudfront.net',
+    });
+    ctx.cookies.set('access_token', '', {
+        maxAge: 0,
+        domain:
+            process.env.NODE_ENV === 'development'
+                ? 'localhost'
+                : 'd98ks68zad15n.cloudfront.net',
+    });
     ctx.status = 204;
 };

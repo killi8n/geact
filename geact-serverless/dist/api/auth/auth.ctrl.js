@@ -66,7 +66,17 @@ exports.login = (ctx) => __awaiter(this, void 0, void 0, function* () {
     }
 });
 exports.logout = (ctx) => {
-    ctx.cookies.set('user', undefined);
-    ctx.cookies.set('access_token', undefined);
+    ctx.cookies.set('user', '', {
+        maxAge: 0,
+        domain: process.env.NODE_ENV === 'development'
+            ? 'localhost'
+            : 'd98ks68zad15n.cloudfront.net',
+    });
+    ctx.cookies.set('access_token', '', {
+        maxAge: 0,
+        domain: process.env.NODE_ENV === 'development'
+            ? 'localhost'
+            : 'd98ks68zad15n.cloudfront.net',
+    });
     ctx.status = 204;
 };
