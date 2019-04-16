@@ -3,6 +3,8 @@ import axios from 'axios';
 const manifest = require('../manifest.json');
 const render = require('./index').default;
 
+const { CLOUD_FRONT_URL: cdnURL } = process.env;
+
 type BuildHtmlPayload = {
     html?: string;
     state?: any;
@@ -36,7 +38,7 @@ const buildHtml = async ({ html, state, error, helmet }: BuildHtmlPayload) => {
         <link rel="shortcut icon" href="./favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="theme-color" content="#000000" />
-        <link rel="manifest" href="https://d308ayjj1uqpre.cloudfront.net/build/manifest.json" />
+        <link rel="manifest" href="${cdnURL}/build/manifest.json" />
         ${title.toString()}
         ${cssKeys}
     </head>

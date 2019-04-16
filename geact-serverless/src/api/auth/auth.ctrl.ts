@@ -47,7 +47,7 @@ export const login = async (ctx: Context) => {
             domain:
                 process.env.NODE_ENV === 'development'
                     ? 'localhost'
-                    : 'd98ks68zad15n.cloudfront.net',
+                    : process.env.REACT_APP_CLOUD_FRONT_URL,
         });
         const { access_token } = response.data;
         ctx.cookies.set('access_token', access_token, {
@@ -56,7 +56,7 @@ export const login = async (ctx: Context) => {
             domain:
                 process.env.NODE_ENV === 'development'
                     ? 'localhost'
-                    : 'd98ks68zad15n.cloudfront.net',
+                    : process.env.REACT_APP_CLOUD_FRONT_URL,
         });
         ctx.body = {
             accessToken: response.data.access_token,
@@ -74,14 +74,14 @@ export const logout = (ctx: Context) => {
         domain:
             process.env.NODE_ENV === 'development'
                 ? 'localhost'
-                : 'd98ks68zad15n.cloudfront.net',
+                : process.env.REACT_APP_CLOUD_FRONT_URL,
     });
     ctx.cookies.set('access_token', '', {
         maxAge: 0,
         domain:
             process.env.NODE_ENV === 'development'
                 ? 'localhost'
-                : 'd98ks68zad15n.cloudfront.net',
+                : process.env.REACT_APP_CLOUD_FRONT_URL,
     });
     ctx.status = 204;
 };

@@ -10,3 +10,7 @@ jspm_packages
 
 dist
 src/ssr/index.js
+src/manifest.json
+
+.env
+
