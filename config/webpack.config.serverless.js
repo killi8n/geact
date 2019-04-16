@@ -13,8 +13,8 @@ module.exports = {
     entry: paths.ssrJs,
     target: 'node',
     output: {
-        path: paths.ssrBuild,
-        filename: 'index.js',
+        path: paths.ssrBuildServerless,
+        filename: 'ssr.js',
         libraryTarget: 'commonjs2',
     },
     module: {

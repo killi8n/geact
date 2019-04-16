@@ -5,6 +5,7 @@
     "dependencies": {
         "@babel/core": "7.2.2",
         "@svgr/webpack": "4.1.0",
+        "aws-sdk": "^2.437.0",
         "axios": "^0.18.0",
         "babel-core": "7.0.0-bridge.0",
         "babel-eslint": "9.0.0",
@@ -77,8 +78,9 @@
     "scripts": {
         "start": "node scripts/start.js",
         "start:server": "npx nodemon -r esm ./server",
-        "build": "node scripts/build.js",
-        "build:server": "node scripts/build.server.js",
+        "build": "node scripts/build.js && node scripts/uploadToS3.js",
+        "build:server": "node scripts/build.server.js && node scripts/copy.js",
+        "build:serverless": "node scripts/build.serverless.js",
         "test": "node scripts/test.js"
     },
     "eslintConfig": {

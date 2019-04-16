@@ -1,21 +1,45 @@
 {
-  "name": "geact-serverless",
-  "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.17",
-    "@types/node": "^8.0.57",
-    "serverless-webpack": "^5.1.1",
-    "source-map-support": "^0.5.6",
-    "ts-loader": "^4.2.0",
-    "typescript": "^2.9.2",
-    "webpack": "^4.5.0"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+    "name": "geact-serverless",
+    "version": "1.0.0",
+    "description": "Serverless webpack example using Typescript",
+    "main": "handler.js",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "deploy:dev": "sls deploy --stage dev",
+        "deploy:prod": "sls deploy --stage prod",
+        "offline": "NODE_ENV=production NODE_PATH=dist sls offline --port 4000 --printOutput",
+        "start:local": "NODE_ENV=development NODE_PATH=dist nodemon ./dist/server-local.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@koa/cors": "2",
+        "axios": "^0.18.0",
+        "joi": "^14.3.1",
+        "koa": "^2.7.0",
+        "koa-bodyparser": "^4.2.1",
+        "koa-morgan": "^1.0.1",
+        "koa-router": "^7.4.0",
+        "koa-static": "^5.0.0",
+        "serverless-http": "^1.9.1"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.17",
+        "@types/joi": "^14.3.2",
+        "@types/koa": "^2.0.48",
+        "@types/koa-bodyparser": "^4.2.2",
+        "@types/koa-morgan": "^1.0.4",
+        "@types/koa-router": "^7.0.40",
+        "@types/koa-static": "^4.0.1",
+        "@types/node": "^8.0.57",
+        "serverless-dotenv-plugin": "^2.0.1",
+        "serverless-offline": "^4.9.4",
+        "serverless-webpack": "^5.1.1",
+        "source-map-support": "^0.5.6",
+        "ts-loader": "^4.2.0",
+        "typescript": "^3.4.3",
+        "webpack": "^4.5.0"
+    },
+    "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+    "license": "MIT"
 }
