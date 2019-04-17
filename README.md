@@ -1,18 +1,22 @@
-# Instructions (local with server directory) -> deprecated
+## Deployed Site
 
-## dev
+https://d1o7t6pv63zflt.cloudfront.net/
+
+## Instructions (local with server directory) -> deprecated
+
+### dev
 
 1. yarn
 2. yarn start:server
 3. yarn start
 
-## prod
+### prod
 
 1. yarn
 2. yarn build && yarn build:server
 3. yarn start:server
 
-# Instructions (with serverless)
+## Instructions (with serverless)
 
 1. $ cd client && yarn
 2. set .env file (client - see .env.sample)
