@@ -14,7 +14,6 @@ const app = new Koa();
 const router = new Router();
 
 const buildPath = path.join(__dirname, './build');
-
 router.use('/api', apiRouter.routes());
 router.get('/', ssr);
 
